@@ -18,20 +18,17 @@ public class WordWriter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WordWriter.class);
 
-    private static final String BASE_TEMPLATE = "base_template.docx";
-    private static final String SEGMENT_TEMPLATE = "segment.docx";
-
-    public void write(File target, List<Object> pages) throws IOException {
+    public void write(File target, List<Page> pages, InputStream segmentStream, InputStream templateStream) throws IOException {
         LOGGER.info("Start to processing report for {}");
 
         Map<String, Object> datas = new HashMap<>();
 
-        datas.put("segment", new DocxRenderData(getClass().getClassLoader().getResourceAsStream(SEGMENT_TEMPLATE), pages));
+        datas.put("segment", new DocxRenderData(segmentStream, pages));
 
         Configure.ConfigureBuilder builder = Configure.newBuilder();
         XWPFTemplate template = null;
         try (FileOutputStream out = new FileOutputStream(target);
-             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(BASE_TEMPLATE)) {
+             InputStream inputStream = templateStream) {
             template = XWPFTemplate.compile(inputStream, builder.build());
             template.render(datas);
             template.write(out);

@@ -1,56 +1,21 @@
 package org.tuctiki.doc.excel2word;
 
-import com.alibaba.excel.ExcelReader;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
+
+import com.github.crab2died.ExcelUtils;
+import com.github.crab2died.exceptions.Excel4JException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class InputExcelReader {
+public class InputExcelReader<T> {
 
-    public void read(File input) {
+    public List<T> read(File input) throws InvalidFormatException, Excel4JException, IOException {
 
-        try (InputStream inputStream = new FileInputStream(input)) {
-            // 解析每行结果在listener中处理
-            ExcelListener listener = new ExcelListener();
-            ExcelReader excelReader = new ExcelReader(inputStream, null, listener);
-            excelReader.read();
-        } catch (Exception e) {
+        Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        return ExcelUtils.getInstance().readExcel2Objects(input.getAbsolutePath(), clazz, 0, 0);
 
-        }
-    }
-
-    public class ExcelListener extends AnalysisEventListener {
-
-        //自定义用于暂时存储data。
-        //可以通过实例获取该值
-        private List<Object> datas = new ArrayList<Object>();
-
-        public void invoke(Object object, AnalysisContext context) {
-            System.out.println("当前行：" + context.getCurrentRowNum());
-            System.out.println(object);
-            datas.add(object);//数据存储到list，供批量处理，或后续自己业务逻辑处理。
-            doSomething(object);//根据自己业务做处理
-        }
-
-        private void doSomething(Object object) {
-            //1、入库调用接口
-        }
-
-        public void doAfterAllAnalysed(AnalysisContext context) {
-            // datas.clear();//解析结束销毁不用的资源
-        }
-
-        public List<Object> getDatas() {
-            return datas;
-        }
-
-        public void setDatas(List<Object> datas) {
-            this.datas = datas;
-        }
     }
 }
