@@ -11,13 +11,10 @@ import java.io.InputStream;
 import java.util.List;
 
 @Component
-public class Excel2Word {
-
-    private static final String BASE_TEMPLATE = "base_template.docx";
-    private static final String SEGMENT_TEMPLATE = "segment.docx";
+public class Excel2Word<T> {
 
     @Autowired
-    InputExcelReader reader;
+    ExcelReader reader;
 
     @Autowired
     WordWriter writer;

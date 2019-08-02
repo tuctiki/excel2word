@@ -4,29 +4,39 @@ package org.tuctiki.doc.excel2word;
 import com.github.crab2died.exceptions.Excel4JException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-class Excel2WordTest {
+@RunWith(MockitoJUnitRunner.class)
+public class Excel2WordTest {
 
-    @Autowired
+    public static final String WORKSPACE = "D:\\shared\\excel2word\\";
+
+    @InjectMocks
     private Excel2Word excel2Word;
+
+    @Spy
+    private ExcelReader reader;
+
+    @Spy
+    private WordWriter writer;
 
     @Test
     public void test() throws InvalidFormatException, Excel4JException, IOException {
-        File input = new File("D:\\shared\\excel2word\\input.xlsx");
-        File output = new File("D:\\shared\\excel2word\\output.docx");
+//        File input = new File(WORKSPACE + "input.xlsx");
+        File input = new File(WORKSPACE + "jiu_asset_report.xls");
+        File output = new File(WORKSPACE + "output.docx");
 
-        try (InputStream segmentStream = new FileInputStream("D:\\shared\\excel2word\\segment_template.docx");
-             InputStream templateStream = new FileInputStream("D:\\shared\\excel2word\\base_template.docx")) {
+        try (InputStream segmentStream = new FileInputStream(WORKSPACE + "segment_template.docx");
+             InputStream templateStream = new FileInputStream(WORKSPACE + "base_template.docx")) {
             excel2Word.exec(input, output, segmentStream, templateStream);
         }
-
     }
-
-
 }
