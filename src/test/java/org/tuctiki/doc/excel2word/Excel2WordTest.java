@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Excel2WordTest {
@@ -37,7 +39,10 @@ public class Excel2WordTest {
 
         try (InputStream segmentStream = new FileInputStream(WORKSPACE + "segment_template.docx");
              InputStream templateStream = new FileInputStream(WORKSPACE + "base_template.docx")) {
-            excel2Word.exec(input, output, segmentStream, templateStream, Page.class);
+            Map<String, InputStream> templates = new HashMap<>();
+            templates.put(WordWriter.BASE_TEMPLATE, templateStream);
+            templates.put(WordWriter.SEGMENT_TEMPLATES, segmentStream);
+            excel2Word.exec(input, output, templates, Page.class);
         }
     }
 }

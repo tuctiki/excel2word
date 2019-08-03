@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class Excel2Word {
@@ -19,9 +20,9 @@ public class Excel2Word {
     @Autowired
     WordWriter writer;
 
-    public void exec(File inputExcel, File target, InputStream segmentStream, InputStream templateStream, Class clazz) throws InvalidFormatException, Excel4JException, IOException {
+    public void exec(File inputExcel, File target, Map<String, InputStream> templates, Class clazz) throws InvalidFormatException, Excel4JException, IOException {
         List pages = reader.read(inputExcel, clazz);
-        writer.write(target, pages, segmentStream, templateStream);
+        writer.write(target, pages, templates);
     }
 
 }
