@@ -1,8 +1,9 @@
 package org.tuctiki.doc.excel2word;
 
 import org.junit.Test;
+import org.tuctiki.doc.excel2word.example.MoneyConverter;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class MoneyConverterTest {
 

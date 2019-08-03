@@ -1,4 +1,4 @@
-package org.tuctiki.doc.excel2word;
+package org.tuctiki.doc.excel2word.example;
 
 import com.deepoove.poi.config.Name;
 import com.github.crab2died.annotation.ExcelField;
@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Page {
 
-    @ExcelField(title = "科室名称", order = 1)
+    @ExcelField(title = "科室名称", order = 1, readConverter = DepartmentConverter.class)
     @Name("科室名称")
     private String department;
 

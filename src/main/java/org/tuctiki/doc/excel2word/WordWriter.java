@@ -18,7 +18,7 @@ public class WordWriter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WordWriter.class);
 
-    public void write(File target, List<Page> pages, InputStream segmentStream, InputStream templateStream) throws IOException {
+    public void write(File target, List pages, InputStream segmentStream, InputStream templateStream) throws IOException {
         LOGGER.info("Start to processing report for {}");
 
         Map<String, Object> datas = new HashMap<>();

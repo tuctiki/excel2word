@@ -1,4 +1,4 @@
-package org.tuctiki.doc.excel2word;
+package org.tuctiki.doc.excel2word.example;
 
 import com.github.crab2died.converter.ReadConvertible;
 import org.apache.commons.lang3.StringUtils;

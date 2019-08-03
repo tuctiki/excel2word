@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Component
-public class Excel2Word<T> {
+public class Excel2Word {
 
     @Autowired
     ExcelReader reader;
@@ -19,8 +19,8 @@ public class Excel2Word<T> {
     @Autowired
     WordWriter writer;
 
-    public void exec(File inputExcel, File target, InputStream segmentStream, InputStream templateStream) throws InvalidFormatException, Excel4JException, IOException {
-        List<Page> pages = reader.read(inputExcel);
+    public void exec(File inputExcel, File target, InputStream segmentStream, InputStream templateStream, Class clazz) throws InvalidFormatException, Excel4JException, IOException {
+        List pages = reader.read(inputExcel, clazz);
         writer.write(target, pages, segmentStream, templateStream);
     }
 

@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.tuctiki.doc.excel2word.example.Page;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,7 +37,7 @@ public class Excel2WordTest {
 
         try (InputStream segmentStream = new FileInputStream(WORKSPACE + "segment_template.docx");
              InputStream templateStream = new FileInputStream(WORKSPACE + "base_template.docx")) {
-            excel2Word.exec(input, output, segmentStream, templateStream);
+            excel2Word.exec(input, output, segmentStream, templateStream, Page.class);
         }
     }
 }

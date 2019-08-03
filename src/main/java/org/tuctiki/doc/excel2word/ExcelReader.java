@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ExcelReader {
 
-    public List<Page> read(File input) throws InvalidFormatException, Excel4JException, IOException {
-        return ExcelUtils.getInstance().readExcel2Objects(input.getAbsolutePath(), Page.class, 0, 0);
+    public List read(File input, Class clazz) throws InvalidFormatException, Excel4JException, IOException {
+        return ExcelUtils.getInstance().readExcel2Objects(input.getAbsolutePath(), clazz, 0, 0);
     }
 }
