@@ -1,4 +1,4 @@
-package org.tuctiki.doc.excel2word;
+package org.tuctiki.doc.excel2word.example;
 
 import org.junit.Test;
 import org.tuctiki.doc.excel2word.example.MoneyConverter;
